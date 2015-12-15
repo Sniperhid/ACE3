@@ -15,7 +15,6 @@
  *
  * Public: No
  */
-
 #include "script_component.hpp"
 
 params ["_unit", "_weapon", "", "", "_ammo", "", "_projectile"];
@@ -27,6 +26,6 @@ if (_bulletMass == 0) then {
     // If the bullet mass is not configured, estimate it
     _bulletMass = 3.4334 + 0.5171 * (getNumber (configFile >> "CfgAmmo" >> _ammo >> "hit") + getNumber (configFile >> "CfgAmmo" >> _ammo >> "caliber"));
 };
-private _energyIncrement = 0.75 * 0.0005 * _bulletMass * (vectorMagnitudeSqr velocity _projectile);
+private _energyIncrement = 0.000375 * _bulletMass * (vectorMagnitudeSqr velocity _projectile);
 
 [_unit, _weapon, _energyIncrement] call FUNC(updateTemperature)

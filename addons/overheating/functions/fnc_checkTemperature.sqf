@@ -14,7 +14,6 @@
  *
  * Public: No
  */
-
 #include "script_component.hpp"
 
 params ["_player", "_weapon"];
@@ -24,7 +23,7 @@ TRACE_2("params",_player,_weapon);
 private _action = getText (configFile >> "CfgWeapons" >> _weapon >> "ACE_checkTemperatureAction");
 
 if (_action == "") then {
-  _action = "Gear";
+    _action = "Gear";
 };
 
 _player playActionNow _action;
