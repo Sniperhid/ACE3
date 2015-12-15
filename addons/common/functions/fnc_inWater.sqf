@@ -1,22 +1,19 @@
-/**
- * fn_inWater_f.sqf
- * @Descr: Check if unit is underwater
- * @Author: Glowbal
+/*
+ * Author: Glowbal
+ * Check if unit's head is underwater
  *
- * @Arguments: [unit OBJECT]
- * @Return: BOOL True if unit is in the water
- * @PublicAPI: true
+ * Arguments:
+ * 0: Unit <OBJECT>
+ *
+ * Return Value:
+ * If unit's head is underwater <BOOL>
+ *
+ * Public: Yes
+ *
+ * Deprecated
  */
-
 #include "script_component.hpp"
 
-private ["_unit","_return","_aslPos"];
-_unit = _this select 0;
-_return = false;
-if ((surfaceIsWater getPos _unit)) then {
-    _aslPos = _unit modelToWorldVisual (_unit selectionPosition "head");
-    if ((_aslPos select 2) <= 0) then {
-        _return = true;
-    };
-};
-_return;
+ACE_DEPRECATED("ace_common_fnc_inWater","3.5.0","ace_common_fnc_isUnderwater");
+
+_this call FUNC(isUnderwater)

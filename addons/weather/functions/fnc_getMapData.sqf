@@ -11,31 +11,6 @@
  */
 #include "script_component.hpp"
 
-GVAR(Altitude) = getNumber(configFile >> "CfgWorlds" >> worldName >> "elevationOffset");
-GVAR(Latitude) = getNumber(configFile >> "CfgWorlds" >> worldName >> "latitude");
-
-if (worldName in ["Chernarus", "Bootcamp_ACR", "Woodland_ACR", "utes"]) then { GVAR(Latitude) = 50; GVAR(Altitude) = 0; };
-if (worldName in ["Altis", "Stratis"]) then { GVAR(Latitude) = 40; GVAR(Altitude) = 0; };
-if (worldName in ["Takistan", "Zargabad", "Mountains_ACR"]) then { GVAR(Latitude) = 35; GVAR(Altitude) = 2000; };
-if (worldName in ["Shapur_BAF", "ProvingGrounds_PMC"]) then { GVAR(Latitude) = 35; GVAR(Altitude) = 100; };
-if (worldName in ["fallujah"]) then { GVAR(Latitude) = 33; GVAR(Altitude) = 0; };
-if (worldName in ["fata", "Abbottabad"]) then { GVAR(Latitude) = 30; GVAR(Altitude) = 1000; };
-if (worldName in ["sfp_wamako"]) then { GVAR(Latitude) = 14; GVAR(Altitude) = 0; };
-if (worldName in ["sfp_sturko"]) then { GVAR(Latitude) = 56; GVAR(Altitude) = 0; };
-if (worldName in ["Bornholm"]) then { GVAR(Latitude) = 55; GVAR(Altitude) = 0; };
-if (worldName in ["Imrali"]) then { GVAR(Latitude) = 40; GVAR(Altitude) = 0; };
-if (worldName in ["Caribou"]) then { GVAR(Latitude) = 68; GVAR(Altitude) = 0; };
-if (worldName in ["Namalsk"]) then { GVAR(Latitude) = 65; GVAR(Altitude) = 0; };
-if (worldName in ["MCN_Aliabad"]) then { GVAR(Latitude) = 36; GVAR(Altitude) = 0; };
-if (worldName in ["Clafghan"]) then { GVAR(Latitude) = 34; GVAR(Altitude) = 640; };
-if (worldName in ["Sangin", "hellskitchen"]) then { GVAR(Latitude) = 32; GVAR(Altitude) = 0; };
-if (worldName in ["Sara"]) then { GVAR(Latitude) = 40; GVAR(Altitude) = 0; };
-if (worldName in ["reshmaan"]) then { GVAR(Latitude) = 35; GVAR(Altitude) = 2000; };
-if (worldName in ["Thirsk"]) then { GVAR(Latitude) = 65; GVAR(Altitude) = 0; };
-if (worldName in ["lingor"]) then { GVAR(Latitude) = -4; GVAR(Altitude) = 0; };
-if (worldName in ["Panthera3"]) then { GVAR(Latitude) = 46; GVAR(Altitude) = 0; };
-if (worldName in ["Kunduz"]) then { GVAR(Latitude) = 37; GVAR(Altitude) = 400; };
-
 // Assume default wind values
 // Source: https://weatherspark.com/averages/32194/Lemnos-Limnos-North-Aegean-Islands-Greece
 GVAR(WindSpeedMax)  = [[8.8, 5.5], [8.8, 5], [8.6, 4.8], [7.6, 3.4], [7.0, 3.0], [7.1, 3.0], [7.5, 3.1], [8.0, 3.2], [7.6, 3.5], [7.8, 4.6], [7.9, 5.0], [8.2, 5.5]];
@@ -103,7 +78,7 @@ if (toLower worldName in ["takistan", "zargabad", "mountains_acr", "shapur_baf",
     GVAR(Humidity) = [68, 69, 62, 60, 49, 37, 38, 39, 40, 41, 56, 61];
     
     // Source: https://weatherspark.com/averages/32750/Kabul-Afghanistan
-    GVAR(WindSpeedMax)  = [[4.0, 1.0], [4.1, 1.0], [5.1, 1.1], [6.9, 1.2], [8.9, 1.2], [10.0, 1.1], 0, [8.2, 1.0], [6.9, 1.0], [5.2, 1.0], [3.8, 0.9], [3.7, 0.9]];
+    GVAR(WindSpeedMax)  = [[4.0, 1.0], [4.1, 1.0], [5.1, 1.1], [6.9, 1.2], [8.9, 1.2], [10.0, 1.1], [9.1,1.0], [8.2, 1.0], [6.9, 1.0], [5.2, 1.0], [3.8, 0.9], [3.7, 0.9]];
     GVAR(WindSpeedMean) = [2.2, 2.2, 2.5, 2.8, 3.8, 4.4, 0, 3.3, 2.7, 2.4, 1.8, 1.9];
     GVAR(WindSpeedMin)  = [[0.2, 0.4], [0.2, 0.4], [0.2, 0.4], [0.3, 0.4], [0.6, 0.4], [0.9, 0.4], [0.7, 0.4], [0.5, 0.4], [0.2, 0.5], [0.1, 0.1], [0, 0.1], [0, 0.1]];
     GVAR(WindDirectionProbabilities) = [[0.04, 0.02, 0.05, 0.04, 0.05, 0.04, 0.11, 0.29], // January

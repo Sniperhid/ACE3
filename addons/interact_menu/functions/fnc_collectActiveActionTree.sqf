@@ -14,8 +14,8 @@
  */
 #include "script_component.hpp"
 
-EXPLODE_3_PVT(_this,_object,_origAction,_parentPath);
-EXPLODE_2_PVT(_origAction,_origActionData,_origActionChildren);
+params ["_object", "_origAction", "_parentPath"];
+_origAction params ["_origActionData", "_origActionChildren"];
 
 private ["_target","_player","_fullPath","_activeChildren","_dynamicChildren","_action","_actionData","_x"];
 
@@ -67,12 +67,12 @@ if !({} isEqualTo (_origActionData select 5)) then {
     if (count _pPath == count _fullPath &&
         {_pPath isEqualTo _fullPath}) then {
 
-        _action = [_object, _action, _fullPath] call FUNC(collectActiveActionTree);
+        _action = [_object, [_actionData,[]], _fullPath] call FUNC(collectActiveActionTree);
         if ((count _action) > 0) then {
             _activeChildren pushBack _action;
         };
     };
-} forEach GVAR(objectActions);
+} forEach GVAR(objectActionList);
 
 
 // If the original action has no statement, and no children, don't display it

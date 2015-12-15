@@ -9,19 +9,16 @@
  * 2: relativeHumidity - value between 0.0 and 1.0 <NUMBER>
  *
  * Return Value:
- * 0: density of air - kg * m^(-3) <NUMBER>
+ * density of air - kg * m^(-3) <NUMBER>
  *
  * Return value:
  * None
  */
 #include "script_component.hpp"
 
-private ["_temperature", "_pressure", "_relativeHumidity"];
-_temperature      = _this select 0; // in C
-_pressure         = _this select 1; // in hPa
-_relativeHumidity = _this select 2; // as ratio 0-1
+params ["_temperature", "_pressure", "_relativeHumidity"];
 
-_pressure = _pressure * 100;
+_pressure = _pressure * 100; // hPa to Pa
 
 if (_relativeHumidity > 0) then {
     private ["_pSat", "_vaporPressure", "_partialPressure"];

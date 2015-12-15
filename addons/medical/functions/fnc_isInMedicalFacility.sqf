@@ -13,8 +13,8 @@
 
 #include "script_component.hpp"
 
-private ["_unit","_eyePos","_objects","_isInBuilding","_medicalFacility"];
-_unit = _this select 0;
+private ["_eyePos", "_objects", "_isInBuilding", "_medicalFacility"];
+params ["_unit"];
 
 _eyePos = eyePos _unit;
 _isInBuilding = false;
@@ -39,16 +39,16 @@ _medicalFacility =
 
 _objects = (lineIntersectsWith [_unit modelToWorldVisual [0, 0, (_eyePos select 2)], _unit modelToWorldVisual [0, 0, (_eyePos select 2) +10], _unit]);
 {
-    if (((typeOf _x) in _medicalFacility) || (_x getVariable [QGVAR(isMedicalFacility),false])) exitwith {
+    if (((typeOf _x) in _medicalFacility) || (_x getVariable [QGVAR(isMedicalFacility),false])) exitWith {
         _isInBuilding = true;
     };
-}foreach _objects;
+} forEach _objects;
 if (!_isInBuilding) then {
     _objects = position _unit nearObjects 7.5;
     {
-        if (((typeOf _x) in _medicalFacility) || (_x getVariable [QGVAR(isMedicalFacility),false])) exitwith {
+        if (((typeOf _x) in _medicalFacility) || (_x getVariable [QGVAR(isMedicalFacility),false])) exitWith {
             _isInBuilding = true;
         };
-    }foreach _objects;
+    } forEach _objects;
 };
 _isInBuilding;

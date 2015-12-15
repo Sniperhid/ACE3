@@ -15,14 +15,23 @@
 disableSerialization;
 endLoadingScreen;
 
-private ["_textHeader", "_textMessage", "_onOK", "_onCancel"];
+// no message without player possible
+if (!hasInterface) exitWith {};
 
-_textHeader = _this select 0;
-_textMessage = _this select 1;
-_onOK = ARR_SELECT(_this,2,{});
-_onCancel = ARR_SELECT(_this,3,{});
+// wait for display
+if (isNull (call BIS_fnc_displayMission)) exitWith {
+    [{
+        if (isNull (call BIS_fnc_displayMission)) exitWith {};
 
-if (typeName _textMessage == "STRING") then {
+        (_this select 0) call FUNC(errorMessage);
+        [_this select 1] call CBA_fnc_removePerFrameHandler;
+
+    }, 1, _this] call CBA_fnc_addPerFrameHandler;
+};
+
+params ["_textHeader", "_textMessage", ["_onOK", {}], ["_onCancel", {}]];
+
+if (_textMessage isEqualType "") then {
     _textMessage = parseText _textMessage;
 };
 
@@ -83,7 +92,7 @@ _bottomPosY = (_ctrlBcgCommonPos select 1) + _ctrlTextPosH + (_marginY * 2) + _b
     _xPos set [1, _bottomPosY];
     _x ctrlSetPosition _xPos;
     _x ctrlCommit 0;
-} foreach [
+} forEach [
     _ctrlBackgroundButtonOK,
     _ctrlBackgroundButtonMiddle,
     _ctrlBackgroundButtonCancel,

@@ -16,13 +16,18 @@
 #include "script_component.hpp"
 #define DEFAULT_ICON QUOTE(\z\ace\addons\interaction\ui\dot_ca.paa)
 private ["_ctrl", "_pos", "_displayNum"];
-PARAMS_4(_text,_icon,_sPos,_textSettings);
+
+params ["_text", "_icon", "_sPos", "_textSettings"];
 
 //systemChat format ["Icon %1 - %2,%3", _text, _sPos select 0, _sPos select 1];
 
 if(GVAR(iconCount) > (count GVAR(iconCtrls))-1) then {
     _displayNum = [[46, 12] select visibleMap,91919] select (uiNamespace getVariable [QGVAR(cursorMenuOpened),false]);
     GVAR(iconCtrls) pushBack ((findDisplay _displayNum) ctrlCreate ["RscStructuredText", 54021+GVAR(iconCount)]);
+    if (GVAR(useCursorMenu)) then {
+        ((finddisplay _displayNum) displayctrl (54021+GVAR(iconCount))) ctrlAddEventHandler ["MouseMoving", DFUNC(handleMouseMovement)];
+        ((finddisplay _displayNum) displayctrl (54021+GVAR(iconCount))) ctrlAddEventHandler ["MouseButtonDown", DFUNC(handleMouseButtonDown)];
+    };
 };
 _ctrl = GVAR(iconCtrls) select GVAR(iconCount);
 

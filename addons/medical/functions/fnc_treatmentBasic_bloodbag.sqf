@@ -9,15 +9,13 @@
  * 3: Treatment classname <STRING>
  *
  * Return Value:
- * nil
+ * None
  *
  * Public: No
  */
 
 #include "script_component.hpp"
 
-private ["_caller", "_target"];
-_caller = _this select 0;
-_target = _this select 1;
+params ["_caller", "_target", "_treatmentClassname"];
 
-[[_target], QUOTE(DFUNC(treatmentBasic_bloodbagLocal)), _target] call EFUNC(common,execRemoteFnc); /* TODO Replace by event system */
+[[_target, _treatmentClassname], QUOTE(DFUNC(treatmentBasic_bloodbagLocal)), _target] call EFUNC(common,execRemoteFnc); /* TODO Replace by event system */

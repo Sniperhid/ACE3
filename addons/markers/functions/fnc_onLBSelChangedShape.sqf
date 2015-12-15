@@ -7,7 +7,7 @@
  * 1: Selected Index <NUMBER>
  *
  * Return Value:
- * Nothing
+ * None
  *
  * Example:
  * [ColorLB, 5] call ace_markers_fnc_onLBSelChangedShape;
@@ -18,11 +18,13 @@
 
 private ["_data", "_config"];
 
-PARAMS_2(_ctrl,_index);
+params ["_ctrl", "_index"];
+TRACE_2("params",_ctrl,_index);
+
 _data = _ctrl lbValue _index;
 
 GVAR(curSelMarkerShape) = _index;
 
-_config = (configfile >> "CfgMarkers") select _data;
+_config = (configFile >> "CfgMarkers") select _data;
 
 GVAR(currentMarkerConfigName) = (configName _config);

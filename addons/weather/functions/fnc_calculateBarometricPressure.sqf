@@ -4,17 +4,14 @@
  * Calculates the barometric pressure based on altitude and weather
  *
  * Arguments:
- * 0: altitude - meters <NUMBER>
+ * altitude - meters <NUMBER>
  *
  * Return Value:
- * 0: barometric pressure - hPA <NUMBER>
+ * barometric pressure - hPA <NUMBER>
  *
  * Return value:
  * None
  */
 #include "script_component.hpp"
 
-private ["_altitude"];
-_altitude = _this;
-
-(1013.25 * exp(-(GVAR(Altitude) + _altitude) / 7990) - 10 * overcast)
+((1013.25 - 10 * overcast) * (1 - (0.0065 * (EGVAR(common,mapAltitude) + _this)) / (KELVIN(GVAR(currentTemperature)) + 0.0065 * EGVAR(common,mapAltitude))) ^ 5.255754495);

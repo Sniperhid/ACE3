@@ -10,3 +10,7 @@
 #endif
 
 #include "\z\ace\addons\main\script_macros.hpp"
+
+
+#define MACRO_HASRESERVE  ace_hasReserveParachute = 1; \
+    ace_reserveParachute = "ACE_ReserveParachute";

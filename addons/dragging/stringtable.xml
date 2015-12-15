@@ -32,7 +32,7 @@
             <Polish>Przedmiot jest zbyt ciężki</Polish>
             <French>Objet trop lourd</French>
             <Portuguese>Objeto muito pesado</Portuguese>
-            <Italian>Non è possibile trascinare l'oggetto a causa del suo peso</Italian>
+            <Italian>L'oggetto pesa troppo</Italian>
             <Russian>Предмет слишком тяжёлый</Russian>
             <Czech>Moc težké</Czech>
             <Hungarian>Az objektum túl nehéz</Hungarian>
@@ -45,9 +45,17 @@
             <French>Porter</French>
             <Czech>Nést</Czech>
             <Portuguese>Carregar</Portuguese>
-            <Italian>Trascina</Italian>
             <Hungarian>Felvevés</Hungarian>
+            <Italian>Trasporta</Italian>
             <Russian>Нести</Russian>
+        </Key>
+        <Key ID="STR_ACE_Dragging_LowerRaise">
+            <English>Raise/Lower</English>
+            <German>Heben/Senken</German>
+            <Polish>Wyżej/Niżej</Polish>
+            <Portuguese>Levantar/Abaixar</Portuguese>
+            <Russian>Поднять/Опустить</Russian>
+            <Czech>Zvýšit/Snížit</Czech>
         </Key>
     </Package>
 </Project>
