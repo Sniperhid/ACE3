@@ -15,14 +15,11 @@
  *
  * Public: No
  */
-#include "\z\ace\addons\overheating\script_component.hpp"
 
-private ["_unit", "_weapon", "_ammo", "_projectile", "_variableName", "_scaledTemperature"];
+#include "script_component.hpp"
 
-_unit = _this select 0;
-_weapon = _this select 1;
-_ammo = _this select 4;
-_projectile = _this select 6;
+params ["_unit", "_weapon", "", "", "_ammo", "", "_projectile"];
+TRACE_1("params", _this);
 
 // Exit if the unit isn't a player
 if !([_unit] call EFUNC(common,isPlayer)) exitWith {};
@@ -33,8 +30,8 @@ if (_unit == ACE_player) then {
 };
 
 // Get current temperature from the unit variable
-_variableName = format [QGVAR(%1), _weapon];
-_scaledTemperature = 0 max (((_unit getVariable [_variableName, [0,0]]) select 0) / 1000) min 1;
+private _variableName = format [QGVAR(%1), _weapon];
+private _scaledTemperature = 0 max (((_unit getVariable [_variableName, [0,0]]) select 0) / 1000) min 1;
 
 systemChat str(_scaledTemperature);
 
@@ -43,8 +40,8 @@ if (time > (_unit getVariable [QGVAR(lastDrop), -1000]) + 0.40 && _scaledTempera
 
     private ["_position", "_direction","_intensity"];
 
-    _direction = (_unit weaponDirection _weapon) vectorMultiply 0.25;
-    _position = (position _projectile) vectorAdd (_direction vectorMultiply (4*(random 0.30)));
+    private _direction = (_unit weaponDirection _weapon) vectorMultiply 0.25;
+    private _position = (position _projectile) vectorAdd (_direction vectorMultiply (4*(random 0.30)));
 
     if (GVAR(enableRefractEffect)) then {
         // Refract SFX, beginning at temp 100º and maxs out at 500º
@@ -73,7 +70,7 @@ if (time > (_unit getVariable [QGVAR(lastDrop), -1000]) + 0.40 && _scaledTempera
     };
 
     // Smoke SFX, beginning at temp 150º
-    _intensity = (_scaledTemperature - 0.15) / 0.85;
+    private _intensity = (_scaledTemperature - 0.15) / 0.85;
     if (_intensity > 0) then {
         drop [
             ["\A3\data_f\ParticleEffects\Universal\Universal", 16, 12, 1, 16],
@@ -101,13 +98,12 @@ if (time > (_unit getVariable [QGVAR(lastDrop), -1000]) + 0.40 && _scaledTempera
 
 
 // Dispersion and bullet slow down
-private ["_dispersion", "_slowdownFactor", "_count"];
 
-_dispersion = getNumber (configFile >> "CfgWeapons" >> _weapon >> "ACE_Dispersion");
+private _dispersion = getNumber (configFile >> "CfgWeapons" >> _weapon >> "ACE_Dispersion");
 
 _dispersion = ([[0*_dispersion,1*_dispersion,2*_dispersion,4*_dispersion], 3 * _scaledTemperature] call EFUNC(common,interpolateFromArray)) max 0;
 
-_slowdownFactor = getNumber (configFile >> "CfgWeapons" >> _weapon >> "ACE_SlowdownFactor");
+private _slowdownFactor = getNumber (configFile >> "CfgWeapons" >> _weapon >> "ACE_SlowdownFactor");
 
 if (_slowdownFactor == 0) then {_slowdownFactor = 1};
 
@@ -115,11 +111,10 @@ _slowdownFactor = ([[1*_slowdownFactor,1*_slowdownFactor,1*_slowdownFactor,0.9*_
 
 
 // Exit if GVAR(pseudoRandomList) isn't synced yet
-if (count GVAR(pseudoRandomList) == 0) exitWith {};
+// if (count GVAR(pseudoRandomList) == 0) exitWith {};
 
 // Get the pseudo random values for dispersion from the remaining ammo count
-private "_pseudoRandomPair";
-_pseudoRandomPair = GVAR(pseudoRandomList) select ((_unit ammo _weapon) mod count GVAR(pseudoRandomList));
+private _pseudoRandomPair = GVAR(pseudoRandomList) select ((_unit ammo _weapon) mod count GVAR(pseudoRandomList));
 
 [_projectile, (_pseudoRandomPair select 0) * _dispersion, (_pseudoRandomPair select 1) * _dispersion, (_slowdownFactor - 1) * vectorMagnitude (velocity _projectile)] call EFUNC(common,changeProjectileDirection);
 
@@ -128,8 +123,7 @@ _pseudoRandomPair = GVAR(pseudoRandomList) select ((_unit ammo _weapon) mod coun
 // Only compute jamming for the local player
 if (_unit != ACE_player) exitWith {};
 
-private "_jamChance";
-_jamChance = 1 / getNumber (configFile >> "CfgWeapons" >> _weapon >> "ACE_MRBS"); // arma handles division by 0
+private _jamChance = 1 / getNumber (configFile >> "CfgWeapons" >> _weapon >> "ACE_MRBS"); // arma handles division by 0
 
 _jamChance = [[0.5*_jamChance,1.5*_jamChance,7.5*_jamChance,37.5*_jamChance], 3 * _scaledTemperature] call EFUNC(common,interpolateFromArray);
 

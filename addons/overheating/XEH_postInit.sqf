@@ -1,8 +1,8 @@
 // by esteldunedain
 #include "script_component.hpp"
 
-GVAR(pseudoRandomList) = [];
 if (isServer) then {
+    GVAR(pseudoRandomList) = [];
     // Construct a list of pseudo random 2D vectors
     for "_i" from 0 to 30 do {
         GVAR(pseudoRandomList) pushBack [-1 + random 2, -1 + random 2];
@@ -28,4 +28,4 @@ if !(hasInterface) exitWith {};
     true
 },
 {false},
-[19, [true, false, false]], false] call CBA_fnc_addKeybind; //R Key
+[19, [true, false, false]], false] call CBA_fnc_addKeybind; //SHIFT + R Key

@@ -11,9 +11,11 @@
  *
  * Public: No
  */
-#include "\z\ace\addons\overheating\script_component.hpp"
 
-EXPLODE_2_PVT(_this,_player,_weapon);
+#include "script_component.hpp"
+
+params ["_player", "_weapon"];
+TRACE_2("params",_player,_weapon);
 
 // don't consume the barrel, but rotate through them.
 [localize LSTRING(SwappedBarrel), QUOTE(PATHTOF(UI\spare_barrel_ca.paa))] call EFUNC(common,displayTextPicture);

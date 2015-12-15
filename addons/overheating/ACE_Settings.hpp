@@ -6,4 +6,8 @@ class ACE_Settings {
         displayName = CSTRING(SettingDisplayTextName);
         description = CSTRING(SettingDisplayTextDesc);
     };
+    class GVAR(enableRefractEffect) {
+        typeName = "BOOL";
+        value = 0;
+    };
 };

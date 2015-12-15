@@ -10,18 +10,18 @@
  * None
  *
  * Example:
- * None
+ * [player, currentWeapon player] call ace_overheating_fnc_checkTemperature
  *
  * Public: No
  */
-#include "\z\ace\addons\overheating\script_component.hpp"
 
-EXPLODE_2_PVT(_this,_player,_weapon);
+#include "script_component.hpp"
 
-private ["_action"];
+params ["_player", "_weapon"];
+TRACE_2("params",_player,_weapon);
 
 // Play animation and report temperature
-_action = getText (configFile >> "CfgWeapons" >> _weapon >> "ACE_checkTemperatureAction");
+private _action = getText (configFile >> "CfgWeapons" >> _weapon >> "ACE_checkTemperatureAction");
 
 if (_action == "") then {
   _action = "Gear";
@@ -30,4 +30,4 @@ if (_action == "") then {
 _player playActionNow _action;
 
 // Launch a PFH that waits a sec before displaying the temperature
-[FUNC(displayTemperature), [_player, _weapon], 1.0, 0] call EFUNC(common,waitAndExecute);
+[FUNC(displayTemperature), [_player, _weapon], 1.0] call EFUNC(common,waitAndExecute);

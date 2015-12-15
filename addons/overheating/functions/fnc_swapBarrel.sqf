@@ -11,12 +11,14 @@
  *
  * Public: No
  */
-#include "\z\ace\addons\overheating\script_component.hpp"
 
-EXPLODE_2_PVT(_this,_player,_weapon);
+#include "script_component.hpp"
+
+params ["_player", "_weapon"];
+TRACE_2("params",_player,_weapon);
 
 if (stance _player != "PRONE") then {
-  [_player, "amovpknlmstpsraswrfldnon", 1] call EFUNC(common,doAnimation);
+    [_player, "amovpknlmstpsraswrfldnon", 1] call EFUNC(common,doAnimation);
 };
 _player playActionNow "GestureDismountMuzzle";
 _player playAction "GestureMountMuzzle";
