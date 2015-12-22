@@ -29,15 +29,15 @@ if (!GVAR(EnableTransmit) || !visibleMap) exitWith {
 };
 
 _unitUID = getPlayerUID ACE_Player;
-if (!isNil "_unitUID" && _unitUID != "") then {
+_playerOwnerID = ACE_player getVariable QGVAR(owner_id);
+if (!isNil "_unitUID" && _unitUID != "" && !isNil "_playerOwnerID") then {
     _drawPosVariableName = format [QGVAR(%1_DrawPos), _unitUID];
     {
         _ownerID = _x getVariable QGVAR(owner_id);
         if (isNil "_ownerID") then {
             [EVENT_PLAYER_HAS_NO_OWNER_ID, [name _x]] call EFUNC(common,serverEvent);
         } else {
-            _playerOwnerID = ACE_player getVariable QGVAR(owner_id);
-            if (!isNil "_playerOwnerID" && _ownerID != _playerOwnerID) then {
+            if (_ownerID != _playerOwnerID) then {
                 _ownerID publicVariableClient _drawPosVariableName;
             };
         };
